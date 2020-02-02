@@ -8,7 +8,7 @@ public class SceneManagerBehaviour : MonoBehaviour
 
     public string NivelNombre;
     public void CargarJuego(){
-        SceneManager.LoadScene(NivelNombre);
+        SceneManager.LoadScene("Level1");
 
     }
 

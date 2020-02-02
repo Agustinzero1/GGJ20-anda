@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -31,11 +32,13 @@ public class Player : MonoBehaviour
                 currentTimeToDie = currentTimeToDie - speed * Time.deltaTime;
             else
             {
-                Debug.Log(":(");
+                
                 if (!dead)
                 {
                     dead = true;
+                    StartCoroutine(Die());
                     AudioManager.instance.PlayFx("12");
+
                 }
             }
         }
@@ -58,4 +61,10 @@ public class Player : MonoBehaviour
         this.isCargando = isCargando;
     }
 
+    IEnumerator Die()
+    {
+ 
+        yield return new WaitForSeconds(0.2f);
+        SceneManager.LoadScene("MenuPrincipal");
+    }
 }

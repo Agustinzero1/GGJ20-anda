@@ -10,10 +10,10 @@ public class AntennaButton : MonoBehaviour
 
     public void GanarCorutine()
     {
-        StartCoroutine( (Ganar());
+        StartCoroutine(Ganar());
     }
 
-    public IEnumerable Ganar()
+    public IEnumerator Ganar()
     {
         anim.SetBool("reparada",true);
         yield return new WaitForSeconds(5f);
