@@ -53,7 +53,10 @@ public class AudioManager : MonoBehaviour
     //    if (muteMusic) MuteMusic(); else UnMuteMusic();
     //    if (muteSFX) MuteSFX(); else UnMuteSFX();
     //}
-
+    private void Start()
+    {
+        instance.PlayMusic("0");
+    }
     public void MuteMusic()
     {
         foreach (Sound s in songs)

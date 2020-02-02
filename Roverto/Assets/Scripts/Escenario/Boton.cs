@@ -16,9 +16,9 @@ public class Boton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (estadoBoton != estadoBotonInterno) {
-            _interactuable.activado = estadoBoton;
-            estadoBotonInterno = estadoBoton;
-        }
+        //if (estadoBoton != estadoBotonInterno) {
+        //    _interactuable.activado = estadoBoton;
+        //    estadoBotonInterno = estadoBoton;
+        //}
     }
 }

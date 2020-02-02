@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LightCaster : MonoBehaviour
 {
     public GameObject[] sceneObjects;
+    public List<GameObject> sceneObjectsList;
+
+    public float Distancia;
+    public Camera camera;
 
     public GameObject panel1;
     public GameObject panel2;
@@ -33,8 +38,9 @@ public class LightCaster : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        sceneObjectsList = sceneObjects.ToList();
         mesh = lightRays.GetComponent<MeshFilter>().mesh; //inits the mesh of the light.
-        foreach (GameObject go in sceneObjects)
+        foreach (GameObject go in sceneObjectsList)
         {
             sceneMeshFilters.Add(go.GetComponent<MeshFilter>());
         }
@@ -81,6 +87,10 @@ public class LightCaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        sceneObjectsList = sceneObjects.Where(x => Vector3.Distance(x.gameObject.transform.position, camera.transform.position) < Distancia).ToList<GameObject>();
+     
+
         mesh.Clear(); //clears the mesh before changing it.
 
         // The next few lines create an array to store all vertices of all the scene objects that should react to the light.
@@ -104,12 +114,12 @@ public class LightCaster : MonoBehaviour
 
         int h = 0; //a constantly increasing int to use to calculate the current location in the angleds struct array.
 
-        for (int j = 0; j < sceneObjects.Length; j++) //cycle through all scene objects.
+        for (int j = 0; j < sceneObjectsList.Count-1; j++) //cycle through all scene objects.
         {
             for (Int64 i = 0; i < sceneMeshFilters[j].mesh.vertices.Length; i++) //cycle through all vertices in the current scene object.
             {
                 Vector3 me = this.transform.position;// just to make the current position shorter to reference.
-                Vector3 other = sceneObjects[j].transform.localToWorldMatrix.MultiplyPoint3x4(objverts[h]); //get the vertex location in world space coordinates.
+                Vector3 other = sceneObjectsList[j].transform.localToWorldMatrix.MultiplyPoint3x4(objverts[h]); //get the vertex location in world space coordinates.
 
                 float angle1 = Mathf.Atan2(((other.y - me.y) - offset), ((other.x - me.x) - offset));// calculate the angle of the two offsets, to be stored in the structs.
                 float angle3 = Mathf.Atan2(((other.y - me.y) + offset), ((other.x - me.x) + offset));

@@ -11,6 +11,14 @@ public class Pinza : MonoBehaviour
     public string axisAction;
     public GameObject ObjetoTocado;
     public bool siEstaApretada;
+    public GameObject particulas;
+    public PistonBrazo _PistonBrazo1;
+    public PistonBrazo _PistonBrazo2;
+    public PistonBrazo _PistonBrazo3;
+    public PistonBrazo _PistonBrazo4;
+    public PistonBrazo _PistonBrazo5;
+
+    public AntennaButton AntenaButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +38,25 @@ public class Pinza : MonoBehaviour
                 {
                     if (ObjetoTocado.layer == 11)
                     {
-                        Boton botontTocado = (ObjetoTocado.GetComponent("Boton") as Boton);
-                        botontTocado.estadoBoton = !botontTocado.estadoBoton;
+                        Interactuable botontTocado = (ObjetoTocado.GetComponent("Interactuable") as Interactuable);
+                        botontTocado.ActivarDesactivar();
+                    }
+                    if (ObjetoTocado.layer == 12)
+                    {
+                        if (debug) Debug.Log("ObjetoTocado.layer == 12");
+                        //toque el lvl up
+                        Instantiate(particulas, ObjetoTocado.transform.position, Quaternion.identity);
+                        _PistonBrazo1.LevelActual += 1;
+                        _PistonBrazo2.LevelActual += 1;
+                        _PistonBrazo3.LevelActual += 1;
+                        _PistonBrazo4.LevelActual += 1;
+                        _PistonBrazo5.LevelActual += 1;
+                        Destroy(ObjetoTocado);
+                    }
+                    if (ObjetoTocado.layer == 13)
+                    {
+                        AudioManager.instance.PlayFx("11");
+                        AntenaButton.StartCoroutine("Ganar");
                     }
 
                 }

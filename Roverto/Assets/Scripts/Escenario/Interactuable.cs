@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interactuable : MonoBehaviour
 {
-    public bool activado = false;
+
     public enum tipo { boton, item, objetoLanzable}
     public tipo _tipoDeObjetoInteractuable;
     public GameObject _gameobject;
@@ -19,11 +19,11 @@ public class Interactuable : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void ActivarDesactivar()
     {
         if (_tipoDeObjetoInteractuable == tipo.boton)
         {
-            ControladorPuerta.state = activado;
+            ControladorPuerta.state = !ControladorPuerta.state;
         }
 
 
