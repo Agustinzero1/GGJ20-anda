@@ -21,6 +21,8 @@ public class LightCaster : MonoBehaviour
     private List<MeshFilter> sceneMeshFilters = new List<MeshFilter>();
     private bool robertoIluminado = false;
 
+    public Player jugador;
+
     public struct angledVerts
     { //used for updating the vertices and UVs of the light mesh. The angle variable is for properly sorting the ray hit points.
         public Vector3 vert;
@@ -162,12 +164,12 @@ public class LightCaster : MonoBehaviour
         if (iluminado && !robertoIluminado)
         {
             robertoIluminado = true;
-            Debug.Log("ROVERTO ESTA ILUMINADO!!! " + iluminado + " roverto estaba iluminado " + robertoIluminado);
+            jugador.ChangeCargar(true);
         }
         else if (!iluminado && robertoIluminado)
         {
             robertoIluminado = false;
-            Debug.Log("SAD ROVERTO!!! " + iluminado + " roverto estaba iluminado " + robertoIluminado);
+            jugador.ChangeCargar(false);
         }
 
         Array.Sort(angleds, delegate (angledVerts one, angledVerts two) {

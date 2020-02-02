@@ -65,7 +65,7 @@ public class DistanciaMouseOrigen : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("el caso es incorrecto, setear correctamente barraACalcular");
+                //Debug.Log("el caso es incorrecto, setear correctamente barraACalcular");
                 break;
         }
     }

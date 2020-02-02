@@ -21,18 +21,47 @@ public class PistonBrazo : MonoBehaviour
     public float posicionDistMin;
     public float posicionMin;
 
+    public int LevelActual;
+    public int LevelActualInterno;
+    public float DistanciaLVL1;
+    public float DistanciaLVL2;
+    public float DistanciaLVL3;
+    public float DistanciaLVL1Porcentaje;
+    public float DistanciaLVL2Porcentaje;
     // Start is called before the first frame update
     void Awake()
     {
        
         posicionMax = transform.localPosition.x;
         posicionMin = posicionMax - posicionDistMin;
+        DistanciaLVL3 = DistanciaMax;
+        DistanciaLVL2 = (DistanciaLVL3 / 100)*DistanciaLVL2Porcentaje;
+        DistanciaLVL1 = (DistanciaLVL3 / 100) * DistanciaLVL1Porcentaje;
 
+        
+        LevelActual = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (LevelActual == 1 && LevelActualInterno != LevelActual) {
+            LevelActualInterno = LevelActual;
+            DistanciaMax = DistanciaLVL1;
+        }
+
+        if (LevelActual == 2 && LevelActualInterno != LevelActual)
+        {
+            LevelActualInterno = LevelActual;
+            DistanciaMax = DistanciaLVL2;
+        }
+
+        if (LevelActual == 3 && LevelActualInterno != LevelActual)
+        {
+            LevelActualInterno = LevelActual;
+            DistanciaMax = DistanciaLVL3;
+        }
+
         //obtengo distancia del mouse
         DistanciaMouse = Vector3.Distance(BasePivote.transform.position, Objetivo.transform.position);
 

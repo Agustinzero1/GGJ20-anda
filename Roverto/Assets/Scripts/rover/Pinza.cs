@@ -10,7 +10,7 @@ public class Pinza : MonoBehaviour
     public Sprite pinzaCerrada;
     public string axisAction;
     public GameObject ObjetoTocado;
-
+    public bool siEstaApretada;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,15 +20,28 @@ public class Pinza : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis(axisAction) > 0)
+        
+        if (Input.GetAxis(axisAction) > 0 )
         {
-            spriteRender.sprite = pinzaCerrada;
-            if (ObjetoTocado != null) {
+            if (siEstaApretada == false) {
+                siEstaApretada = true;
+                spriteRender.sprite = pinzaCerrada;
+                if (ObjetoTocado != null)
+                {
+                    if (ObjetoTocado.layer == 11)
+                    {
+                        Boton botontTocado = (ObjetoTocado.GetComponent("Boton") as Boton);
+                        botontTocado.estadoBoton = !botontTocado.estadoBoton;
+                    }
+
+                }
             }
+            
         }
         else
         {
             spriteRender.sprite = pinzaAbierta;
+            siEstaApretada = false;
         }
     }
 
